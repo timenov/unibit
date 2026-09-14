@@ -5,6 +5,7 @@ function App() {
   return (
     <div className="App">
       <div><Link to="/register">Register</Link></div>
+      <div><Link to="/login">Login</Link></div>
     </div>
   );
 }
