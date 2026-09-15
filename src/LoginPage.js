@@ -11,6 +11,14 @@ function LoginPage() {
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
+    if (username.length === 0) {
+      setError("Username is mandatory.");
+      return;
+    }
+    if (password.length === 0) {
+      setError("Password is mandatory.");
+      return;
+    }
 
     try {
       const response = await apiService.loginUser(username, password);
@@ -25,12 +33,17 @@ function LoginPage() {
   }
 
   return (
-    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
+    <div>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "15px" }}>
+      <form
+        onSubmit={handleSubmit}
+        className={"row g-3 needs-validation " + (error && "was-validated")}
+        noValidate
+      >
+        <div className="col-md-6">
           <label htmlFor="username">Username:</label>
           <input
+            className="form-control"
             type="text"
             id="username"
             name="username"
@@ -39,9 +52,10 @@ function LoginPage() {
             required
           />
         </div>
-        <div style={{ marginBottom: "15px" }}>
+        <div className="col-md-6">
           <label htmlFor="password">Password:</label>
           <input
+            className="form-control"
             type="password"
             id="password"
             name="password"
@@ -50,9 +64,14 @@ function LoginPage() {
             required
           />
         </div>
-        {error ? <p style={{ color: "red" }}>{error}</p> : null}
-        <br />
-        <button type="submit">Login</button>
+        <div className="col-12">
+          <div className="form-control-feedback text-danger">{error}</div>
+        </div>
+        <div className="col-12">
+          <button type="submit" className="btn btn-primary">
+            Login
+          </button>
+        </div>
       </form>
     </div>
   );

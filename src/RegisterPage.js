@@ -11,6 +11,10 @@ function RegisterPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (username.length === 0) {
+      setError("Username is mandatory.");
+      return;
+    }
     if (password.length < 8) {
       setError("Password must be at least 8 characters long.");
       return;
@@ -26,7 +30,7 @@ function RegisterPage() {
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
-        navigate("/");
+        navigate("/login");
       })
       .catch((err) => {
         setError(err.message);
@@ -34,12 +38,19 @@ function RegisterPage() {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "400px", margin: "auto" }}>
+    <div>
       <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">Username:</label>
+      <form
+        className={"row g-3 needs-validation " + (error && "was-validated")}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        <div className="col-md-6">
+          <label htmlFor="username" className="form-label">
+            Username:
+          </label>
           <input
+            className="form-control"
             type="text"
             id="username"
             name="username"
@@ -48,9 +59,12 @@ function RegisterPage() {
             required
           />
         </div>
-        <div>
-          <label htmlFor="password">Password:</label>
+        <div className="col-md-6">
+          <label htmlFor="password" className="form-label">
+            Password:
+          </label>
           <input
+            className="form-control"
             type="password"
             id="password"
             name="password"
@@ -59,9 +73,12 @@ function RegisterPage() {
             required
           />
         </div>
-        <div>
-          <label htmlFor="repeatPassword">Repeat Password:</label>
+        <div className="col-md-6">
+          <label htmlFor="repeatPassword" className="form-label">
+            Repeat Password:
+          </label>
           <input
+            className="form-control"
             type="password"
             id="repeatPassword"
             name="repeatPassword"
@@ -70,9 +87,14 @@ function RegisterPage() {
             required
           />
         </div>
-        {error ? <p style={{ color: "red" }}>{error}</p> : null}
-        <br />
-        <button type="submit">Register</button>
+        <div className="col-12">
+          <div className="form-control-feedback text-danger">{error}</div>
+        </div>
+        <div className="col-12">
+          <button className="btn btn-primary" type="submit">
+            Register
+          </button>
+        </div>
       </form>
     </div>
   );
