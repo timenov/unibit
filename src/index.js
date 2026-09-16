@@ -5,6 +5,7 @@ import App from "./App";
 import Home from "./Home";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
+import Admin from "./AdminPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/admin",
+        element: <Admin />,
       },
     ],
   },

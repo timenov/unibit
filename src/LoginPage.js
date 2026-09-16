@@ -20,16 +20,19 @@ function LoginPage() {
       return;
     }
 
-    try {
-      const response = await apiService.loginUser(username, password);
-      if (!response) {
-        throw new Error("Login failed");
-      }
-      alert("Login successful!");
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
-    }
+    apiService
+      .loginUser(username, password)
+      .then((response) => {
+        if (!response) {
+          throw new Error("Login failed");
+        }
+
+        localStorage.setItem("user", response.username);
+        navigate("/admin");
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   }
 
   return (
