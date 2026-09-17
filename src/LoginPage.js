@@ -28,6 +28,7 @@ function LoginPage() {
         }
 
         localStorage.setItem("user", response.username);
+        window.dispatchEvent(new Event('storage'))
         navigate("/admin");
       })
       .catch((err) => {
